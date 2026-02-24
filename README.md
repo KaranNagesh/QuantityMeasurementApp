@@ -1,21 +1,23 @@
-
-📅 20 Feb 2026  
-🔹 UC4 – Extended Unit Support (Yards & Centimeters)  
-Branch: feature/UC4-YardEquality
+📅 21 Feb 2026  
+🔹 UC6 – Addition of Two Length Units (Same Category)  
+Branch: feature/UC6-UnitAddition
 
 🎯 Objective
 
-- Extend QuantityLength class to support Yards and Centimeters
-- Maintain cross-unit equality comparisons
-- Preserve all previous UC1–UC3 functionality
-- Ensure DRY principle while adding new units
+- Enable addition of two QuantityLength objects, potentially with different units
+- Result is expressed in the unit of the first operand
+- Maintain DRY, immutability, and cross-unit precision
 
 ✅ Implementation
 
-- Added YARDS and CENTIMETERS to LengthUnit enum with proper conversion factors
-- Verified QuantityLength equals() method works seamlessly for new units
-- Ensured type safety, numeric validation, and null handling
-- Covered yard-to-yard, yard-to-feet, yard-to-inches, and cm conversions in JUnit 5 tests
-- All previous tests from UC1–UC3 continue to pass
+- Added instance and static add() methods in QuantityLength
+- Validates non-null operands, valid LengthUnits, and finite values
+- Converts both operands to base unit (feet), performs addition
+- Converts sum to the unit of the first operand
+- Returns a new QuantityLength object (immutability preserved)
+- Leverages UC5 conversion logic; no duplication of conversion code
+- Overloaded methods to support raw values or QuantityLength objects
+- Handles zero, negative, large, and small values
+- Comprehensive JUnit 5 tests cover same-unit, cross-unit, commutativity, and precision
 
-[Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC4-YardEquality/src)
+[Source Code](https://github.com/aniruddhayadu/QuantityMeasurementApp/tree/feature/UC6-UnitAddition/src)
