@@ -176,7 +176,7 @@ Branch: feature/UC6-UnitAddition
 ---
 
 📅 21 Feb 2026  
-🔹 UC7 – Addition with Target Unit Specification  
+**🔹 UC7 – Addition with Target Unit Specification ** 
 Branch: feature/UC7-TargetUnitAddition
 
 🎯 Objective
@@ -202,7 +202,7 @@ Branch: feature/UC7-TargetUnitAddition
 
 ---
 
-** 🔹 UC8: Refactoring LengthUnit to Standalone Enum ** 
+**🔹 UC8: Refactoring LengthUnit to Standalone Enum**  
 
 Description
 Extracts `LengthUnit` from inside `QuantityLength` into a standalone top-level class. Assigns conversion responsibility to the enum itself. `QuantityLength` is simplified to delegate all conversions to unit methods. All UC1–UC7 functionality preserved.
@@ -222,7 +222,7 @@ Key Concepts
 
 ---
 
-** 🔹UC9: Weight Measurement (Equality, Conversion & Addition) **
+** 🔹UC9: Weight Measurement (Equality, Conversion & Addition)** 
 
 Description
 Introduces a new `WeightUnit` enum and `QuantityWeight` class mirroring the UC8 length pattern. Supports equality, conversion, and addition for KILOGRAM, GRAM, and POUND. Weight and length are incompatible categories.
@@ -245,7 +245,7 @@ Key Concepts
 
 ---
 
-** 🔹UC10: Generic Quantity Class with IMeasurable Interface **
+**🔹UC10: Generic Quantity Class with IMeasurable Interface**
 
 ## Description
 Refactors `QuantityLength` and `QuantityWeight` into a single generic `Quantity<U extends IMeasurable>` class. Eliminates code duplication across categories using a common interface. All UC1–UC9 functionality preserved.
@@ -267,7 +267,7 @@ Key Concepts
 [Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC10-MultiCategoryUnit)
 
 ---
-** 🔹UC11: Volume Measurement (Litre, Millilitre, Gallon) **
+**🔹UC11: Volume Measurement (Litre, Millilitre, Gallon)** 
 
  Description
 Adds a third measurement category — volume — by creating a `VolumeUnit` enum implementing `IMeasurable`. No changes to `Quantity<U>`, `QuantityMeasurementApp`, or existing tests required. Proves the UC10 architecture scales linearly.
@@ -288,3 +288,24 @@ Adds a third measurement category — volume — by creating a `VolumeUnit` enum
 
 ---
 
+** UC12: Subtraction and Division Operations**
+
+ Description
+Extends `Quantity<U>` with subtraction (returns `Quantity<U>`) and division (returns dimensionless `double`). Both operations support cross-unit arithmetic within the same category and maintain immutability.
+
+ Operations
+| Method | Returns | Notes |
+|--------|---------|-------|
+| `subtract(other)` | `Quantity<U>` | Result in first operand's unit |
+| `subtract(other, targetUnit)` | `Quantity<U>` | Result in explicit unit |
+| `divide(other)` | `double` | Dimensionless ratio |
+
+ Key Concepts
+- Subtraction is **non-commutative**: `A - B ≠ B - A`
+- Division is **non-commutative**: `A ÷ B ≠ B ÷ A`
+- Division by zero throws `ArithmeticException`
+- Cross-category operations throw `IllegalArgumentException`
+
+[Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC12-ArithmeticUnit)
+
+---
