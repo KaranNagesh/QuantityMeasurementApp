@@ -202,7 +202,7 @@ Branch: feature/UC7-TargetUnitAddition
 
 ---
 
-🔹 UC8: Refactoring LengthUnit to Standalone Enum
+** 🔹 UC8: Refactoring LengthUnit to Standalone Enum ** 
 
 Description
 Extracts `LengthUnit` from inside `QuantityLength` into a standalone top-level class. Assigns conversion responsibility to the enum itself. `QuantityLength` is simplified to delegate all conversions to unit methods. All UC1–UC7 functionality preserved.
@@ -222,7 +222,7 @@ Key Concepts
 
 ---
 
-🔹UC9: Weight Measurement (Equality, Conversion & Addition)
+** 🔹UC9: Weight Measurement (Equality, Conversion & Addition) **
 
 Description
 Introduces a new `WeightUnit` enum and `QuantityWeight` class mirroring the UC8 length pattern. Supports equality, conversion, and addition for KILOGRAM, GRAM, and POUND. Weight and length are incompatible categories.
@@ -245,7 +245,7 @@ Key Concepts
 
 ---
 
-🔹UC10: Generic Quantity Class with IMeasurable Interface
+** 🔹UC10: Generic Quantity Class with IMeasurable Interface **
 
 ## Description
 Refactors `QuantityLength` and `QuantityWeight` into a single generic `Quantity<U extends IMeasurable>` class. Eliminates code duplication across categories using a common interface. All UC1–UC9 functionality preserved.
@@ -267,3 +267,24 @@ Key Concepts
 [Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC10-MultiCategoryUnit)
 
 ---
+** 🔹UC11: Volume Measurement (Litre, Millilitre, Gallon) **
+
+ Description
+Adds a third measurement category — volume — by creating a `VolumeUnit` enum implementing `IMeasurable`. No changes to `Quantity<U>`, `QuantityMeasurementApp`, or existing tests required. Proves the UC10 architecture scales linearly.
+
+ Conversion Factors (base: LITRE)
+| Unit | Factor |
+|------|--------|
+| LITRE | 1.0 |
+| MILLILITRE | 0.001 |
+| GALLON | 3.78541 |
+
+ Key Concepts
+- Only a new enum needed to add a full measurement category
+- Cross-category safety: `1.0 LITRE ≠ 1.0 KILOGRAM` and `1.0 LITRE ≠ 1.0 FOOT`
+- All generic `Quantity<U>` operations work automatically
+
+[Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC11-VolumeMeasurement)
+
+---
+
