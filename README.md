@@ -309,3 +309,28 @@ Extends `Quantity<U>` with subtraction (returns `Quantity<U>`) and division (ret
 [Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC12-ArithmeticUnit)
 
 ---
+# UC13: Centralized Arithmetic Logic (DRY Refactoring)
+
+## Description
+Refactors UC12's `add()`, `subtract()`, and `divide()` to eliminate duplicated validation and conversion logic by introducing a centralized private helper method and an `ArithmeticOperation` enum. Public API is unchanged; all UC12 behavior preserved.
+
+## Internal Architecture
+| Component | Role |
+|-----------|------|
+| `ArithmeticOperation` enum | Dispatches ADD, SUBTRACT, DIVIDE via `compute(a, b)` |
+| `validateArithmeticOperands()` | Centralized null, category, finiteness checks |
+| `performBaseArithmetic()` | Converts to base unit → executes operation → returns result |
+
+## Two Enum Styles Supported
+- **Abstract method**: Each constant overrides `compute()` — clean for complex logic
+- **Lambda (`DoubleBinaryOperator`)**: Concise, modern functional style
+
+## Key Concepts
+- All validation defined once → consistent errors across all operations
+- Adding future operations (MULTIPLY, MODULO) requires only a new enum constant
+- Private helpers reduce each public method to 2–3 lines
+- All UC12 tests pass without modification
+
+  [Source Code](https://github.com/KaranNagesh/QuantityMeasurementApp/tree/feature/UC13-CentralizedUnit)
+
+---
