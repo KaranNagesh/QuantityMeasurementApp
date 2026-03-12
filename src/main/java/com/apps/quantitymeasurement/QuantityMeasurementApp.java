@@ -70,4 +70,27 @@ public class QuantityMeasurementApp {
 	public QuantityMeasurementController controller;
 
 	public IQuantityMeasurementRepository repository;
-
+	private QuantityMeasurementApp() {
+		this.repository = QuantityMeasurementCacheRepository.getInstance();
+		QuantityMeasurementServiceImpl service = new QuantityMeasurementServiceImpl(this.repository);
+		this.controller = new QuantityMeasurementController(service);
+	}
+	
+	public static QuantityMeasurementApp getInstance() {
+		if (instance == null) {
+			instance = new QuantityMeasurementApp();
+		}
+		return instance;
+	}
+	
+	public static void main(String[] args) throws InvalidUnitMeasurementException {
+		QuantityMeasurementApp app = getInstance();
+		QuantityDTO feetDTO = new QuantityDTO(12.0, "INCHES", "Length");
+	    QuantityDTO inchDTO = new QuantityDTO(12, "FEET", "LengthUnit");
+	    QuantityDTO targetDTO = new QuantityDTO(0, "CENTIMETERS", "Length");
+	    
+	    QuantityDTO result = app.controller.performAddition(feetDTO, inchDTO, targetDTO);
+	    System.out.println(result);
+	    
+	}
+}
