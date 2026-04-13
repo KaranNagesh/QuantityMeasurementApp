@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://quantitydb.c5cuacokmjgk.ap-south-1.rds.amazonaws.com
+    url: jdbc:mysql://quantitydb.c5cuacokmjgk.ap-south-1.rds.amazonaws.com/qma_db
     username: admin
     password: password123
 
