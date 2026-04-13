@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://quantitydb.c5cuacokmjgk.ap-south-1.rds.amazonaws.com
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: admin
+    password: password123
 
   security:
     oauth2:
